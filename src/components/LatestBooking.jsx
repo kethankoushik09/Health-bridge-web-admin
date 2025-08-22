@@ -7,8 +7,12 @@ export default function LatestBookings() {
   ];
 
   return (
-    <div className="w-[170%] bg-white shadow rounded-lg p-6">
-      <h3 className="text-lg font-semibold mb-4"><i class="bi bi-card-checklist px-2 text-blue-800 text-2xl"></i>Latest Bookings</h3><hr/>
+    <div className="w-[80%] bg-white shadow rounded-lg p-6">
+      <h3 className="text-lg font-semibold mb-4">
+        <i class="bi bi-card-checklist px-2 text-blue-800 text-2xl"></i>Latest
+        Bookings
+      </h3>
+      <hr />
       <ul className="space-y-3">
         {bookings.map((b, i) => (
           <li key={i} className="flex justify-between items-center  pb-2">
