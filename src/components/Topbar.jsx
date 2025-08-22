@@ -1,0 +1,20 @@
+import { LogOut } from "lucide-react"; // icon library (lucide-react is lightweight)
+import logo from "../assets/logo.jpg";
+
+export default function Topbar() {
+  return (
+    <div className="flex justify-between items-center bg-white shadow px-6 py-3">
+      {/* Logo */}
+      <div className="flex items-center gap-2">
+        <img src={logo} alt="Logo" className="w-10 h-8 rounded" />
+        <h1 className="text-lg font-bold text-blue-600">Wellness</h1>
+      </div>
+
+      {/* Logout */}
+      <button className="flex items-center gap-2 bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">
+        <LogOut size={18} />
+        Logout
+      </button>
+    </div>
+  );
+}
