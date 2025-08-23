@@ -3,11 +3,12 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import LoginForm from "./components/LoginForm.jsx";
 import Body from "./components/Body.jsx"; // Contains Navbar + Sidebar + Outlet
 import Dashboard from "./pages/Dashboard.jsx";
-// import Profile from "./pages/Profile";
-// import Appointments from "./pages/Appointments";
-// import AddDoctor from "./pages/AddDoctor";
+import Profile from "./pages/Profile.jsx";
+import Appointments from "./pages/Appointments";
+import AddDoctor from "./pages/AddDoctor";
 import { useSelector } from "react-redux";
   import { ToastContainer} from 'react-toastify';
+import DoctorList from "./pages/DoctorList.jsx";
 
 
 
@@ -24,9 +25,10 @@ function App() {
         {/* Protected Routes */}
         <Route path="/" element={isLogin ? <Body /> : <Navigate to="/login" />}>
           <Route index element={<Dashboard />} /> {/* Default page */}
-          {/* <Route path="appointments" element={<Appointments />} /> */}
-          {/* <Route path="profile" element={<Profile />} /> */}
-          {/* <Route path="add-doctor" element={<AddDoctor />} /> */}
+          <Route path="appointments" element={<Appointments />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="add-doctor" element={<AddDoctor />} />
+          <Route path="doctors-list" element={<DoctorList/>}/>
         </Route>
 
         {/* Catch-all */}
