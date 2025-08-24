@@ -55,7 +55,7 @@ export default function LoginForm() {
             className="w-72 h-72"
           />
           <p className="mt-6 text-blue-600 font-semibold text-lg animate-pulse">
-            Please wait, redirecting to your profile...
+            Please wait, redirecting to Dashboard...
           </p>
         </div>
       )}
