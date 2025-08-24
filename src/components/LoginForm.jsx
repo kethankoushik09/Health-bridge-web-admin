@@ -3,16 +3,20 @@ import { useState } from "react";
 import { BASE_URL } from "../utils/constants";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-import { setAdmin } from "../store/Reducers.js/AdminReducer";
+import { setAdmin } from "../store/Reducers/AdminReducer";
+import Lottie from "lottie-react";
+import doctorAnimation from "../assets/adminLoading.json"; // 👈 your Lottie file
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [admin, SetAdmin] = useState(true);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       if (admin) {
         const res = await axios.post(
@@ -25,21 +29,41 @@ export default function LoginForm() {
 
         if (res.data.success) {
           toast.success(res.data.message);
+          setTimeout(() => {
+            setLoading(false);
+            window.location.href = "/";
+          }, 2500);
         } else {
           toast.error(res.data.message);
+          setLoading(false);
         }
       }
     } catch (err) {
       toast.error(err.response?.data?.message || "Something went wrong");
+      setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-white via-blue-100 to-white-100">
+      {/* LOADING SCREEN */}
+      {loading && (
+        <div className="absolute inset-0 bg-white flex flex-col items-center justify-center z-50">
+          <Lottie
+            animationData={doctorAnimation}
+            loop={true}
+            className="w-72 h-72"
+          />
+          <p className="mt-6 text-blue-600 font-semibold text-lg animate-pulse">
+            Please wait, redirecting to your profile...
+          </p>
+        </div>
+      )}
+
+      {/* LOGIN FORM */}
       <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-sm">
         <h2 className="text-2xl font-bold text-center mb-6 text-blue-600">
-          {admin ? "Admin" : "Doctor"}{" "}
-          <span className="text-black">Login</span>
+          {admin ? "Admin" : "Doctor"} <span className="text-black">Login</span>
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -71,9 +95,10 @@ export default function LoginForm() {
 
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white py-2 rounded-lg"
+            disabled={loading}
+            className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition disabled:opacity-50"
           >
-            Login
+            {loading ? "Logging in..." : "Login"}
           </button>
         </form>
 

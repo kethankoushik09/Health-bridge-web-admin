@@ -3,6 +3,8 @@ import defaultimage from "../assets/default.jpg";
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import { toast } from "react-toastify";
+import Lottie from "lottie-react";
+import addDocLoading from "../assets/addDocLoading.json"; 
 
 export default function AddDoctor() {
   const [formData, setFormData] = useState({
@@ -18,7 +20,7 @@ export default function AddDoctor() {
     address2: "",
   });
   const [docImage, SetdocImage] = useState(false);
-  // const [preview, setPreview] = useState(null);
+  const [loading, setLoading] = useState(false); 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,24 +32,20 @@ export default function AddDoctor() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     const formDataObj = new FormData();
 
     for (let key in formData) {
       if (key !== "image" && key !== "address1" && key !== "address2") {
-        formDataObj.append(key, formData[key]); // text values
+        formDataObj.append(key, formData[key]);
       }
     }
 
-    // combine addresses
     const fullAddress = `${formData.address1} ${formData.address2}`.trim();
     formDataObj.append("address", fullAddress);
 
-    // append actual file
     formDataObj.append("image", docImage);
-    console.log("Doctor Data:", Object.fromEntries(formDataObj));
-    const data = Object.fromEntries(formDataObj);
-    console.log(data);
 
     try {
       const res = await axios.post(
@@ -58,10 +56,7 @@ export default function AddDoctor() {
           withCredentials: true,
         }
       );
-      console.log("hiii");
-      console.log(res.data.success);
-      
-      
+
       if (res.data.success) {
         setFormData({
           name: "",
@@ -76,25 +71,39 @@ export default function AddDoctor() {
           address2: "",
         });
         SetdocImage(false);
+        toast.success(res.data.message);
+      } else {
+        toast.error(res.data.message);
       }
-      console.log(res.data.message);
-      toast.success(res.data.message);
     } catch (err) {
-      console.log(err.response.data.message);
-      toast.error(err.response.data.message);
+      toast.error(err.response?.data?.message || "Something went wrong");
+    } finally {
+      setLoading(false);
     }
-
-    // axios.post("/api/doctors", formDataObj)
   };
 
   return (
     <>
+      {/* LOADING OVERLAY */}
+      {loading && (
+        <div className="absolute inset-0 bg-white flex flex-col items-center justify-center z-50">
+          <Lottie
+            animationData={addDocLoading}
+            loop
+            autoplay
+            style={{ width: 200, height: 200 }}
+          />
+          <p className="mt-6 text-blue-600 font-semibold text-lg animate-pulse">
+            Adding Doctor, please wait...
+          </p>
+        </div>
+      )}
+
       <h2 className="text-2xl font-bold mb-4 text-gray-700">Add Doctor</h2>
 
-      <div className="p-6 bg-white rounded-lg shadow-md ">
+      <div className="p-6 bg-white rounded-lg shadow-md">
         {/* Upload Picture */}
         <div className="flex gap-5 items-start mb-9 ">
-          {/* Hidden File Input */}
           <input
             id="doctor-picture"
             type="file"
@@ -104,7 +113,6 @@ export default function AddDoctor() {
             className="hidden"
           />
 
-          {/* Clickable Circle */}
           <label
             htmlFor="doctor-picture"
             className="w-18 h-18 rounded-full border-2 border-gray-300 flex items-center justify-center  cursor-pointer bg-gray-100"
@@ -287,9 +295,10 @@ export default function AddDoctor() {
           <div className="col-span-1 md:col-span-2">
             <button
               type="submit"
-              className="p-10 bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700"
+              disabled={loading}
+              className="w-full bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 transition disabled:opacity-50"
             >
-              Submit
+              {loading ? "Submitting..." : "Submit"}
             </button>
           </div>
         </form>

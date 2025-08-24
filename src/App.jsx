@@ -20,10 +20,11 @@ function App() {
      <ToastContainer position="top-right" autoClose={500} />
       <Routes>
         {/* Public Route - Login */}
-        <Route path="/login" element={isLogin ? <Navigate to="/" /> : <LoginForm />} />
+        {/* <Route path="/login" element={isLogin ? <Navigate to="/" /> : <LoginForm />} /> */}
+        <Route path="/login" element={<LoginForm />} />
 
         {/* Protected Routes */}
-        <Route path="/" element={isLogin ? <Body /> : <Navigate to="/login" />}>
+        <Route path="/" element={<Body />}>
           <Route index element={<Dashboard />} /> {/* Default page */}
           <Route path="appointments" element={<Appointments />} />
           <Route path="profile" element={<Profile />} />

@@ -2,7 +2,8 @@ import { NavLink } from "react-router-dom";
 
 export default function Sidebar() {
   return (
-    <div className="w-64 bg-white shadow-md min-h-screen p-6">
+    // hidden on mobile (sm), block on md and larger
+    <div className="hidden md:block w-64 bg-white shadow-md min-h-screen p-6">
       <nav className="space-y-4">
         <NavLink
           to="/"
@@ -25,6 +26,7 @@ export default function Sidebar() {
         >
           <i className="bi bi-calendar text-xl text-black" /> Appointments
         </NavLink>
+
         <NavLink
           to="/add-doctor"
           className={({ isActive }) =>
@@ -46,8 +48,6 @@ export default function Sidebar() {
         >
           <i className="bi bi-people text-xl text-black" /> Doctors List
         </NavLink>
-
-        
       </nav>
     </div>
   );
