@@ -5,7 +5,7 @@ import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-import { removeAdmin } from "../store/Reducers/AdminReducer";
+import { removeAdmin } from "../Redux/Reducers/AdminReducer";
 import { NavLink } from "react-router-dom";
 
 export default function Topbar() {

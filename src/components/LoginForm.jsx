@@ -3,7 +3,7 @@ import { useState } from "react";
 import { BASE_URL } from "../utils/constants";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-import { setAdmin } from "../store/Reducers/AdminReducer";
+import { setAdmin } from "../Redux/Reducers/AdminReducer";
 import Lottie from "lottie-react";
 import doctorAnimation from "../assets/adminLoading.json"; // 👈 your Lottie file
 
