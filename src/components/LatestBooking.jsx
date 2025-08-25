@@ -7,7 +7,8 @@ export default function LatestBookings() {
   ];
 
   return (
-    <div className="w-[80%] bg-white shadow rounded-lg p-6">
+    <div className="w-[90%] sm:w-[80%] mx-auto bg-white shadow rounded-lg p-6 sm: mt-10">
+
       <h3 className="text-lg font-semibold mb-4">
         <i class="bi bi-card-checklist px-2 text-blue-800 text-2xl"></i>Latest
         Bookings

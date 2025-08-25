@@ -82,11 +82,9 @@ export default function AddDoctor() {
     }
   };
 
-  return (
-    <>
-      {/* LOADING OVERLAY */}
-      {loading && (
-        <div className="absolute inset-0 bg-white flex flex-col items-center justify-center z-50">
+  if(loading){
+    return(
+      <div className="absolute inset-0 bg-white flex flex-col items-center justify-center z-50">
           <Lottie
             animationData={addDocLoading}
             loop
@@ -97,8 +95,13 @@ export default function AddDoctor() {
             Adding Doctor, please wait...
           </p>
         </div>
-      )}
 
+    )
+  }
+
+  return (
+    <>
+  
       <h2 className="text-2xl font-bold mb-4 text-gray-700">Add Doctor</h2>
 
       <div className="p-6 bg-white rounded-lg shadow-md">
