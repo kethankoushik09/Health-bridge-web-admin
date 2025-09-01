@@ -19,10 +19,8 @@ const DoctorList = () => {
         { withCredentials: true }
       );
       getAlldoctors();
-
     } catch (err) {
       console.log(err.message);
-      
     }
   }
 
@@ -91,28 +89,32 @@ const DoctorList = () => {
                 </figure>
 
                 <div className="card-body items-center text-center p-4">
-                  {/* Availability */}
-                  {/* <div className="flex items-center space-x-2 mb-2">
-                    <span
-                      className={`h-3 w-3 rounded-full ${
-                        doc.avaliable ? "bg-green-500" : "bg-red-500"
-                      }`}
-                    ></span>
-                    <span className="text-sm text-gray-600">
-                      {doc.available ? "Available" : "Not Available"}
-                    </span>
-                  </div> */}
-                  <div className="flex items-center space-x-2 mb-2">
-                    <input
-                      type="checkbox"
-                      checked={doc.avaliable}
-                      readOnly
-                      onChange={()=>handleChangeAvailability(doc._id)}
-                      className="h-4 w-4 accent-green-600"
-                    />
-                    <span className="text-sm text-gray-600">
-                      Available
-                    </span>
+                  {/* Availability Toggle */}
+                  <div className="flex flex-col items-center mb-4">
+                    <label className="flex items-center cursor-pointer">
+                      <div className="relative">
+                        <input
+                          type="checkbox"
+                          checked={doc.available}
+                          onChange={() => handleChangeAvailability(doc._id)}
+                          className="sr-only"
+                        />
+                        <div
+                          className={`w-14 h-8 flex items-center rounded-full p-1 transition-colors duration-300 ${
+                            doc.available ? "bg-green-500" : "bg-red-500"
+                          }`}
+                        >
+                          <div
+                            className={`bg-white w-6 h-6 rounded-full shadow-md transform transition-transform duration-300 ${
+                              doc.available ? "translate-x-6" : "translate-x-0"
+                            }`}
+                          />
+                        </div>
+                      </div>
+                      <span className="ml-3 text-sm font-medium text-gray-700">
+                        {doc.available ? "Available" : "Not Available"}
+                      </span>
+                    </label>
                   </div>
 
                   {/* Doctor Info */}
