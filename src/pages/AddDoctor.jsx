@@ -234,6 +234,10 @@ export default function AddDoctor() {
                 <option value="cardiologist">Cardiologist</option>
                 <option value="dermatologist">Dermatologist</option>
                 <option value="neurologist">Neurologist</option>
+                <option value="orthopedic">Orthopedic</option>
+                <option value="pediatrician">Pediatrician</option>
+                <option value="gastroenterologist">Gastroenterologist</option>
+                <option value="gynecologist">Gynecologist</option>
               </select>
             </div>
 
