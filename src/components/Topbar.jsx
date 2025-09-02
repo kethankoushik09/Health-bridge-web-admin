@@ -69,7 +69,6 @@ export default function Topbar() {
 
       {/* Right side actions */}
       <div className="flex items-center gap-3">
-        
         {/* Logout */}
         <button
           className="flex items-center gap-2 bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
@@ -87,13 +86,27 @@ export default function Topbar() {
           <Menu size={22} />
         </button>
         {/* Doctor Profile Icon (only if doctor is logged in) */}
+
         {isDoctorLogin && docImage && (
-          <img
-            src={docImage}
-            alt="Doctor Profile"
-            className="w-10 h-10 rounded-full cursor-pointer border-2 border-gray-300 hover:border-blue-500"
-            onClick={() => navigate("/profile")}
-          />
+          <div className="dropdown dropdown-end">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost btn-circle avatar"
+            >
+              <div className="w-10 rounded-full">
+                <img alt="Tailwind CSS Navbar component" src={docImage} />
+              </div>
+            </div>
+            <ul
+              tabIndex={0}
+              className="menu menu-sm dropdown-content bg-white rounded-box z-1 mt-3 w-52 p-2 shadow"
+            >
+              <li onClick={() => navigate("/profile")}>
+                <a className="hover:bg-blue-100">Profile</a>
+              </li>
+            </ul>
+          </div>
         )}
       </div>
 

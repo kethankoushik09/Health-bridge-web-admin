@@ -6,17 +6,18 @@ export default function Body() {
   return (
     <div className="flex flex-col h-screen">
       {/* Top NavBar */}
-      <Topbar/>
+      <Topbar />
+      
 
-      <div className="flex flex-1">
+      <div className="flex ">
         {/* Sidebar */}
         <Sidebar />
+        
 
         {/* Main Page Content */}
-<div className="flex-1 p-6 bg-blue-100 bg-opacity-50 overflow-y-auto">
-  <Outlet />
-</div>
-
+        <div className="flex-1 p-6 bg-blue-100 bg-opacity-50 ">
+          <Outlet />
+        </div>
       </div>
     </div>
   );
