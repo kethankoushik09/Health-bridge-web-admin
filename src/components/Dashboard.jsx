@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useSelector } from "react-redux";
+
 
 export default function DashboardCards() {
   const [stats, setStats] = useState({
@@ -9,10 +11,20 @@ export default function DashboardCards() {
     doctors: 0,
   });
 
+  const isAdminLogin = useSelector((state) => state.admin.isLogin);
+  const isDoctorLogin = useSelector((state) => state.doctor.isLogin);
+
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const res = await axios.get("http://localhost:4000/api/admin/dashboardStats", {
+        let url = "";
+        if (isAdminLogin) {
+          url = "http://localhost:4000/api/admin/dashboardStats";
+        } else if (isDoctorLogin) {
+          url = "http://localhost:4000/api/doctor/dashboardStats";
+        }
+
+        const res = await axios.get(url, {
           withCredentials: true, // if protected route
         });
         if (res.data.success) {
@@ -39,10 +51,12 @@ export default function DashboardCards() {
         <p className="text-xl font-bold">{stats.patients}</p>
         <p className="text-gray-500">Patients</p>
       </div>
-      <div className="bg-white shadow rounded-lg p-6 text-center">
-        <p className="text-xl font-bold">{stats.doctors}</p>
-        <p className="text-gray-500">Doctors</p>
-      </div>
+      {isAdminLogin && (
+        <div className="bg-white shadow rounded-lg p-6 text-center">
+          <p className="text-xl font-bold">{stats.doctors}</p>
+          <p className="text-gray-500">Doctors</p>
+        </div>
+      )}
     </div>
   );
 }

@@ -5,7 +5,8 @@ import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { setAdmin } from "../Redux/Reducers/AdminReducer";
 import Lottie from "lottie-react";
-import doctorAnimation from "../assets/adminLoading.json"; // 👈 your Lottie file
+import doctorAnimation from "../assets/adminLoading.json"; 
+import { setDoctor } from "../Redux/Reducers/DoctorReducer";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
@@ -14,29 +15,47 @@ export default function LoginForm() {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
-  const handleSubmit = async (e) => {
+ const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+
     try {
+      let res;
+
       if (admin) {
-        const res = await axios.post(
+        // Admin login
+        res = await axios.post(
           BASE_URL + "/api/admin/logIn",
           { email, password },
           { withCredentials: true }
         );
 
-        dispatch(setAdmin());
+        if (res.data.success) {
+          dispatch(setAdmin(res.data.admin)); // store admin data
+        }
+      } else {
+        // Doctor login
+        res = await axios.post(
+          BASE_URL + "/api/doctor/login",
+          { email, password },
+          { withCredentials: true }
+        );
 
         if (res.data.success) {
-          toast.success(res.data.message);
-          setTimeout(() => {
-            setLoading(false);
-            window.location.href = "/";
-          }, 2500);
-        } else {
-          toast.error(res.data.message);
-          setLoading(false);
+          dispatch(setDoctor(res.data.doctor)); // store doctor data
+          console.log(res.data.doctor);
         }
+      }
+
+      if (res.data.success) {
+        toast.success(res.data.message);
+        setTimeout(() => {
+          setLoading(false);
+          window.location.href = "/";
+        }, 2500);
+      } else {
+        toast.error(res.data.message);
+        setLoading(false);
       }
     } catch (err) {
       toast.error(err.response?.data?.message || "Something went wrong");

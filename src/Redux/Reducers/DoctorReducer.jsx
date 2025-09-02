@@ -1,19 +1,28 @@
+// src/Redux/Reducers/DoctorReducer.js
 import { createSlice } from "@reduxjs/toolkit";
+
+const initialState = {
+  isLogin: JSON.parse(localStorage.getItem("isDoctorLogin")) || false,
+};
 
 const doctorSlice = createSlice({
   name: "doctor",
-  initialState: null,
+  initialState,
   reducers: {
-    addDoctor: (state, action) => {
-      return action.payload;
+    setDoctor: (state, action) => {
+      state.isLogin = true;
+      // persist in localStorage
+
+      localStorage.setItem("isDoctorLogin", true);
     },
-    removeAllDoctor: () => {
-      return null;
+    removeDoctor: (state) => {
+      // state.doctor = null;
+      state.isLogin = false;
+
+      localStorage.removeItem("isDoctorLogin");
     },
   },
 });
 
-export const { addDoctor, removeAllDoctor } = doctorSlice.actions;
-
-const doctorReducer = doctorSlice.reducer;
-export default doctorReducer;
+export const { setDoctor, removeDoctor } = doctorSlice.actions;
+export default doctorSlice.reducer;

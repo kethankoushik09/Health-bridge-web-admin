@@ -4,23 +4,34 @@ import logo from "../assets/logo.jpg";
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { removeAdmin } from "../Redux/Reducers/AdminReducer";
 import { NavLink } from "react-router-dom";
+import { removeDoctor } from "../Redux/Reducers/DoctorReducer";
 
 export default function Topbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const dispatch = useDispatch();
 
+  const isAdminLogin = useSelector((state) => state.admin.isLogin);
+  const isDoctorLogin = useSelector((state) => state.doctor.isLogin);
+
   async function handleLogout() {
     try {
+      let url = "";
+      if (isAdminLogin) {
+        url = BASE_URL + "/api/admin/logOut";
+      } else if (isDoctorLogin) {
+        url = BASE_URL + "/api/doctor/logOut";
+      }
       const res = await axios.post(
-        BASE_URL + "/api/admin/logOut",
+        url,
         {},
         { withCredentials: true }
       );
       if (res.data.success) {
-        dispatch(removeAdmin());
+        if (isAdminLogin) dispatch(removeAdmin());
+        if (isDoctorLogin) dispatch(removeDoctor());
         toast.success(res.data.message);
       } else {
         toast.error(res.data.message);

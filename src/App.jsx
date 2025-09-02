@@ -11,7 +11,10 @@ import { ToastContainer } from "react-toastify";
 import DoctorList from "./pages/DoctorList.jsx";
 
 function App() {
-  const isLogin = useSelector((state) => state.admin.isLogin);
+  const isAdminLogin = useSelector((state) => state.admin.isLogin);
+  const isDoctorLogin = useSelector((state) => state.doctor.isLogin);
+
+  const isLogin = isAdminLogin || isDoctorLogin;
 
   return (
     <BrowserRouter>
