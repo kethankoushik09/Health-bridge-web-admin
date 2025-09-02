@@ -1,13 +1,23 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 export default function LatestBookings() {
   const [bookings, setBookings] = useState([]);
 
+    const isAdminLogin = useSelector((state) => state.admin.isLogin);
+  const isDoctorLogin = useSelector((state) => state.doctor.isLogin);
+
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const res = await axios.get("http://localhost:4000/api/admin/latestBookings", {
+        let url=""
+        if(isAdminLogin){
+          url="http://localhost:4000/api/admin/latestBookings"
+        }else if(isDoctorLogin){
+          url="http://localhost:4000/api/doctor/latestBookings"
+        }
+        const res = await axios.get(url, {
           withCredentials: true,
         });
         if (res.data.success) {

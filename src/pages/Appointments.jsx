@@ -1,15 +1,25 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
+import { useSelector } from "react-redux";
 
 const Appointments = () => {
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
 
+    const isAdminLogin = useSelector((state) => state.admin.isLogin);
+  const isDoctorLogin = useSelector((state) => state.doctor.isLogin);
+
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
-        const response = await axios.get(BASE_URL + "/api/admin/appointments", {
+        let url="";
+        if(isAdminLogin){
+          url=BASE_URL + "/api/admin/appointments";
+        }else if(isDoctorLogin){
+          url=BASE_URL + "/api/doctor/appointments";
+        }
+        const response = await axios.get(url, {
           withCredentials: true,
         });
 
