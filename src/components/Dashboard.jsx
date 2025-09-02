@@ -37,8 +37,10 @@ export default function DashboardCards() {
     fetchStats();
   }, []);
 
+   // Dynamic grid cols
+  const gridCols = isAdminLogin ? "lg:grid-cols-4 md:grid-cols-2" : "lg:grid-cols-3 md:grid-cols-2";
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 my-6">
+    <div className={`grid ${gridCols} gap-6 my-6`}>
       <div className="bg-white shadow rounded-lg p-6 text-center">
         <p className="text-xl font-bold">${stats.earnings}</p>
         <p className="text-gray-500">Earnings</p>
