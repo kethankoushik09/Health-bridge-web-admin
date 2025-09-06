@@ -7,15 +7,13 @@ export default function Body() {
     <div className="flex flex-col h-screen">
       {/* Top NavBar */}
       <Topbar />
-      
 
       <div className="flex ">
         {/* Sidebar */}
         <Sidebar />
-        
 
         {/* Main Page Content */}
-        <div className="flex-1 p-6 bg-blue-100 bg-opacity-50 ">
+        <div className="flex-1 p-6 bg-blue-100 bg-opacity-50 overflow-scroll min-h-screen">
           <Outlet />
         </div>
       </div>
