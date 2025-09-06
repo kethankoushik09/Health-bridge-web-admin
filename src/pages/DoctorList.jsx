@@ -14,7 +14,7 @@ const DoctorList = () => {
   async function handleChangeAvailability(id) {
     try {
       await axios.patch(
-        `${BASE_URL}/api/doctor/changeAvailablity/${id}`,
+        `${BASE_URL}/api/doctor/changeAvailability/${id}`,
         {}, // empty body
         { withCredentials: true }
       );
