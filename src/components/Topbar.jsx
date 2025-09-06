@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import { LogOut, Menu } from "lucide-react"; // lucide icons
 import logo from "../assets/logo.jpg";
 import axios from "axios";
@@ -11,31 +11,31 @@ import { removeDoctor } from "../Redux/Reducers/DoctorReducer";
 
 export default function Topbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [docImage, setDocImage] = useState(null);
+  // const [docImage, setDocImage] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const isAdminLogin = useSelector((state) => state.admin.isLogin);
   const isDoctorLogin = useSelector((state) => state.doctor.isLogin);
 
-  useEffect(() => {
-    if (isDoctorLogin) {
-      // Fetch doctor profile image
-      const fetchDoctorImage = async () => {
-        try {
-          const res = await axios.get(`${BASE_URL}/api/doctor/profile`, {
-            withCredentials: true,
-          });
-          if (res.data.success) {
-            setDocImage(res.data.profile.image);
-          }
-        } catch (error) {
-          console.error("Error fetching doctor image:", error);
-        }
-      };
-      fetchDoctorImage();
-    }
-  }, [isDoctorLogin]);
+  // useEffect(() => {
+  //   if (isDoctorLogin) {
+  //     // Fetch doctor profile image
+  //     const fetchDoctorImage = async () => {
+  //       try {
+  //         const res = await axios.get(`${BASE_URL}/api/doctor/profile`, {
+  //           withCredentials: true,
+  //         });
+  //         if (res.data.success) {
+  //           setDocImage(res.data.profile.image);
+  //         }
+  //       } catch (error) {
+  //         console.error("Error fetching doctor image:", error);
+  //       }
+  //     };
+  //     fetchDoctorImage();
+  //   }
+  // }, [isDoctorLogin]);
 
   async function handleLogout() {
     try {
@@ -87,7 +87,7 @@ export default function Topbar() {
         </button>
         {/* Doctor Profile Icon (only if doctor is logged in) */}
 
-        {isDoctorLogin && docImage && (
+        {/* {isDoctorLogin && docImage && (
           <div className="dropdown dropdown-end">
             <div
               tabIndex={0}
@@ -107,7 +107,7 @@ export default function Topbar() {
               </li>
             </ul>
           </div>
-        )}
+        )} */}
       </div>
 
       {/* Mobile Dropdown */}
@@ -147,6 +147,15 @@ export default function Topbar() {
               className="flex items-center gap-2 text-gray-600 hover:text-black"
             >
               <i className="bi bi-people text-xl text-black" /> Doctors List
+            </NavLink>
+          )}
+          {isDoctorLogin && (
+            <NavLink
+              to="/profile"
+              onClick={() => setMenuOpen(false)}
+              className="flex items-center gap-2 text-gray-600 hover:text-black"
+            >
+              <i className="bi bi-person-fill text-xl text-black" />Profile
             </NavLink>
           )}
         </div>
