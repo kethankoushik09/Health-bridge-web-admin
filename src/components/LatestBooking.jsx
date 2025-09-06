@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { BASE_URL } from "../utils/constants";
 
 export default function LatestBookings() {
   const [bookings, setBookings] = useState([]);
@@ -13,9 +14,9 @@ export default function LatestBookings() {
       try {
         let url = "";
         if (isAdminLogin) {
-          url = "http://localhost:4000/api/admin/latestBookings";
+          url = BASE_URL+"api/admin/latestBookings";
         } else if (isDoctorLogin) {
-          url = "http://localhost:4000/api/doctor/latestBookings";
+          url = BASE_URL+"api/doctor/latestBookings";
         }
         const res = await axios.get(url, {
           withCredentials: true,

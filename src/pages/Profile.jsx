@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { BASE_URL } from "../utils/constants";
 import {
   FaEnvelope,
   FaGraduationCap,
@@ -19,7 +20,7 @@ export default function Profile() {
 
   useEffect(() => {
     const fetchProfile = async () => {
-      const res = await axios.get("http://localhost:4000/api/doctor/profile", {
+      const res = await axios.get(`${BASE_URL}/api/doctor/profile`, {
         withCredentials: true,
       });
       if (res.data.success) {

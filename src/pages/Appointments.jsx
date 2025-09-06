@@ -3,6 +3,7 @@ import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import { useSelector } from "react-redux";
 
+
 const Appointments = () => {
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { BASE_URL } from "../utils/constants";
 
 
 export default function DashboardCards() {
@@ -19,9 +20,9 @@ export default function DashboardCards() {
       try {
         let url = "";
         if (isAdminLogin) {
-          url = "http://localhost:4000/api/admin/dashboardStats";
+          url = BASE_URL+"api/admin/dashboardStats";
         } else if (isDoctorLogin) {
-          url = "http://localhost:4000/api/doctor/dashboardStats";
+          url = BASE_URL+"api/doctor/dashboardStats";
         }
 
         const res = await axios.get(url, {
