@@ -14,9 +14,9 @@ export default function LatestBookings() {
       try {
         let url = "";
         if (isAdminLogin) {
-          url = BASE_URL+"api/admin/latestBookings";
+          url = BASE_URL+"/api/admin/latestBookings";
         } else if (isDoctorLogin) {
-          url = BASE_URL+"api/doctor/latestBookings";
+          url = BASE_URL+"/api/doctor/latestBookings";
         }
         const res = await axios.get(url, {
           withCredentials: true,

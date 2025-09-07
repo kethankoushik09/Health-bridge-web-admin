@@ -20,9 +20,9 @@ export default function DashboardCards() {
       try {
         let url = "";
         if (isAdminLogin) {
-          url = BASE_URL+"api/admin/dashboardStats";
+          url = BASE_URL+"/api/admin/dashboardStats";
         } else if (isDoctorLogin) {
-          url = BASE_URL+"api/doctor/dashboardStats";
+          url = BASE_URL+"/api/doctor/dashboardStats";
         }
 
         const res = await axios.get(url, {

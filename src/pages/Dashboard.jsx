@@ -1,5 +1,3 @@
-import Sidebar from "../components/Sidebar";
-import Topbar from "../components/Topbar";
 import DashboardCards from "../components/Dashboard";
 import LatestBookings from "../components/LatestBooking";
 
